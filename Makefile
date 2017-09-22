@@ -21,9 +21,9 @@ VERSION ?= v0.0.1
 GOOS ?= $(shell go env GOOS)
 GOARCH ?= $(shell go env GOARCH)
 BUILD_DIR ?= ./out
-ORG := github.com/jimmidyson
+ORG := github.com/syndesisio
 REPOPATH ?= $(ORG)/pemtokeystore
-DOCKER_IMAGE_NAME ?= jimmidyson/pemtokeystore
+DOCKER_IMAGE_NAME ?= syndesisio/pemtokeystore
 DOCKER_IMAGE_TAG ?= latest
 
 LDFLAGS := -s -w -extldflags '-static'
@@ -34,7 +34,7 @@ out/pemtokeystore: out/pemtokeystore-$(GOOS)-$(GOARCH)
 	cp $(BUILD_DIR)/pemtokeystore-$(GOOS)-$(GOARCH) $(BUILD_DIR)/pemtokeystore
 
 out/pemtokeystore-darwin-amd64: ./cmd/pemtokeystore/main.go $(shell $(SRCFILES))
-	cd $(GOPATH)/src/$(REPOPATH) && CGO_ENABLED=0 GOARCH=amd64 GOOS=darwin go build --installsuffix cgo -ldflags="$(LDFLAGS)" -a -o $(BUILD_DIR)/pemtokeystore-darwin-amd64 ./cmd/pemtokeystore/main.go
+	CGO_ENABLED=0 GOARCH=amd64 GOOS=darwin go build --installsuffix cgo -ldflags="$(LDFLAGS)" -a -o $(BUILD_DIR)/pemtokeystore-darwin-amd64 ./cmd/pemtokeystore/main.go
 
 out/pemtokeystore-linux-amd64: ./cmd/pemtokeystore/main.go $(shell $(SRCFILES))
 	cd $(GOPATH)/src/$(REPOPATH) && CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build --installsuffix cgo -ldflags="$(LDFLAGS)" -a -o $(BUILD_DIR)/pemtokeystore-linux-amd64 ./cmd/pemtokeystore/main.go

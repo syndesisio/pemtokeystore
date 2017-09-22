@@ -20,7 +20,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/jimmidyson/pemtokeystore"
+	"github.com/syndesisio/pemtokeystore"
 )
 
 type stringSliceFlag []string
